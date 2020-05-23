@@ -1,0 +1,208 @@
+﻿@*dropdown menu style düzenlenecek.*@
+@using MyEvernote.WebApp
+@using MyEvernote.Entities
+@using MyEvernote.WebApp.Models
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .dropdown-large {
+            position: static !important;
+        }
+
+        .dropdown-menu-large {
+            margin-left: 16px;
+            margin-right: 16px;
+            padding: 20px 0px;
+        }
+
+            .dropdown-menu-large > li > ul {
+                padding: 0;
+                margin: 0;
+            }
+
+                .dropdown-menu-large > li > ul > li {
+                    list-style: none;
+                }
+
+                    .dropdown-menu-large > li > ul > li > a {
+                        display: block;
+                        padding: 3px 20px;
+                        clear: both;
+                        font-weight: normal;
+                        line-height: 1.428571429;
+                        color: #333333;
+                        white-space: normal;
+                    }
+
+            .dropdown-menu-large > li ul > li > a:hover,
+            .dropdown-menu-large > li ul > li > a:focus {
+                text-decoration: none;
+                color: #262626;
+                background-color: #f5f5f5;
+            }
+
+            .dropdown-menu-large .disabled > a,
+            .dropdown-menu-large .disabled > a:hover,
+            .dropdown-menu-large .disabled > a:focus {
+                color: #999999;
+            }
+
+                .dropdown-menu-large .disabled > a:hover,
+                .dropdown-menu-large .disabled > a:focus {
+                    text-decoration: none;
+                    background-color: transparent;
+                    background-image: none;
+                    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+                    cursor: not-allowed;
+                }
+
+            .dropdown-menu-large .dropdown-header {
+                color: #428bca;
+                font-size: 18px;
+            }
+
+            .dropdown-menu-large > li {
+                margin-bottom: 30px;
+            }
+
+                .dropdown-menu-large > li:last-child {
+                    margin-bottom: 0;
+                }
+
+            .dropdown-menu-large .dropdown-header {
+                padding: 3px 15px !important;
+            }
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/fonts/css/all.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+
+    <link href="~/Content/shop-homepage.css" rel="stylesheet" />
+
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <!--popper drowdown için, ama proje içindeki popper ı eklediğimde çalışmadı.-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/Home/Index">My Evernote</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                @if (SessionHelper.User != null)
+                {
+                    <nav class="navbar navbar-default navbar-static">
+                        <div class="collapse navbar-collapse js-navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:whitesmoke"> <span class="fas fa-user-cog"></span> Yönetim <b class="caret"></b></a>
+
+                                    <ul class="dropdown-menu dropdown-menu-large">
+                                        <li class="col-md-3">
+                                            <ul style="width:150px">
+                                                <li class="dropdown-header">Notlar</li>
+                                                <li>@Bootstrap.LinkMenu("/Note/Index", string.Empty, "Notlar", string.Empty, string.Empty)</li>
+                                                <li>@Bootstrap.LinkMenu("/Note/Create", string.Empty, "Not Ekle", string.Empty, string.Empty)</li>
+                                            </ul>
+                                        </li>
+                                        @if (SessionHelper.User.IsAdmin)
+                                        {
+                                            <li class="col-md-3">
+                                                <ul style="width:150px">
+                                                    <li class="dropdown-header">Kullanıcılar</li>
+                                                    <li>@Bootstrap.LinkMenu("/User/Index", string.Empty, "Kullanıcılar", string.Empty, string.Empty)</li>
+                                                    <li>@Bootstrap.LinkMenu("/User/Create", string.Empty, "Kullanıcı Ekle", string.Empty, string.Empty)</li>
+                                                </ul>
+                                            </li>
+                                            <li class="col-md-3">
+                                                <ul style="width:150px">
+                                                    <li class="dropdown-header">Kategoriler</li>
+                                                    <li>@Bootstrap.LinkMenu("/Category/Index", string.Empty, "Kategoriler", string.Empty, string.Empty)</li>
+                                                    <li>@Bootstrap.LinkMenu("/Category/Create", string.Empty, "Kategori Ekle", string.Empty, string.Empty)</li>
+                                                </ul>
+                                            </li>
+
+                                        }
+                                    </ul>
+
+                                </li>
+                            </ul>
+                        </div><!-- /.nav-collapse -->
+                    </nav>
+                }
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Bootstrap.LinkMenu("/Home/Mostliked", "heart", "  En Beğenilenler", "nav-link", string.Empty)
+                    </li>
+                    <li class="nav-item">
+                        @Bootstrap.LinkMenu("/Home/Index", "list", "  Son Yazılar", "nav-link", string.Empty)
+                    </li>
+                    <li class="nav-item">
+                        @Bootstrap.LinkMenu("/Home/About", "info-circle", "  Hakkımızda", "nav-link", string.Empty)
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    @if (SessionHelper.User == null)
+                    {
+                        <li class="nav-item active">
+                            @Bootstrap.LinkMenu("/Home/Login", "info-sign-in-alt", "  Giriş", "nav-link", string.Empty)
+                        </li>
+                        <li class="nav-item">
+                            @Bootstrap.LinkMenu("/Home/Register", "user-circle", "  Üye Ol", "nav-link", string.Empty)
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:whitesmoke">
+                                <span class="fas fa-user"></span>  @SessionHelper.User.Username<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li> @Bootstrap.LinkMenu("/Home/ShowProfile", "user", "  Profilim", string.Empty, "color:black; padding-left:15px;")</li>
+                                <li> @Bootstrap.LinkMenu("/Home/EditProfile", "cog", "  Ayarlar", string.Empty, "color:black; padding-left:15px;")</li>
+                                <li>  @Bootstrap.LinkMenu("/Note/MyLikedNotes", "heart", "  Beğenilerim", string.Empty, "color:black; padding-left:15px;")</li>
+                                <li>  @Bootstrap.LinkMenu("/Home/Message", "envelope", "  Mesajlar", string.Empty, "color:black; padding-left:15px;")</li>
+                                <li class="dropdown-divider"></li>
+                                <li>  @Bootstrap.LinkMenu("/Home/Logout", "power-off", "  Oturumu Kapat", string.Empty, "color:black; padding-left:15px;")</li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br />
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <!--Buraya bir bölüm açtık.Partialfooterdan gelme, default unu false yaptık biz istersek true yapıp çağıracağız. (Ör index sayfası en altında var,login de yok)-->
+    @RenderSection("footer", required: false)
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+﻿@model MyEvernote.Entities.Note
+
+@{
+    ViewBag.Title = "Not Detay";
+}
+
+<link href="~/Content/validation-error.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-1">
+            <h4>@ViewBag.Title</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-horizontal">
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Categori.Title) : </b></label>
+                    <div class="col-md-9" style="vertical-align:middle;margin:auto">
+                        @Html.DisplayFor(model => model.Categori.Title)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Title) : </b></label>
+                    <div class="col-md-9" style="vertical-align:middle;margin:auto">
+                        @Html.DisplayFor(model => model.Title)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Text) : </b></label>
+                    <div class="col-md-9" style="vertical-align:middle;margin:auto">
+                        @Html.DisplayFor(model => model.Text)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.IsDraft) : </b></label>
+                    <div class="col-md-9" style="vertical-align:middle;margin:auto">
+                        @Html.DisplayFor(model => model.IsDraft)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.LikeCount) : </b></label>
+                    <div class="col-md-9" style="vertical-align:middle;margin:auto">
+                        @Html.DisplayFor(model => model.LikeCount)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                @Bootstrap.LinkButton("/Note/Index", "outline-secondary", "col-md-3 btn-sm", string.Empty, "arrow-left", " Geri Dön")
+                <div class="col-md-6">
+                    @Bootstrap.LinkButton("/Note/Edit/" + Model.Id, "info", "btn-sm", string.Empty, string.Empty, " Düzenle")
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

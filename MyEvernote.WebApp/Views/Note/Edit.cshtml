@@ -1,0 +1,76 @@
+﻿@model MyEvernote.Entities.Note
+
+@{
+    ViewBag.Title = "Not Düzenle";
+}
+
+<link href="~/Content/validation-error.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-1">
+            <h4>@ViewBag.Title</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(false)
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Title) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Text) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.IsDraft) : </b></label>
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsDraft)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.LikeCount) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.LikeCount, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label id="CategoriId" name="CategoriId" class="col-md-3 col-form-label"><b>Kategori : </b></label>
+                        <div class="col-md-9">
+                            @Html.DropDownList("CategoriId", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                        </div>
+                        @Bootstrap.LinkButton("/Note/Index", "outline-secondary", "col-md-3 btn-sm", string.Empty, "arrow-left", " Geri Dön")
+                        <div class="col-md-6 text-right">
+                            @Bootstrap.Button("primary", "btn-sm", "submit", string.Empty, "Kaydet")
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

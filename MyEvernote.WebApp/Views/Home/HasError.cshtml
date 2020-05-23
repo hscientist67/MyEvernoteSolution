@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Hata Oluştu";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            @{ 
+                Exception ex = null;
+
+                if (TempData["LastError"]!=null)
+                {
+                    ex = TempData["LastError"] as Exception;
+                }
+            }
+            <h4><span class="fas fa-times-circle"></span>  Hata Oluştu</h4>
+            <p>
+                Hata oluştu lütfen site yöneticisi ile iletişime geçiniz. <br /><br /><br />
+                @if (ex != null)
+                {
+                    <strong>
+                        Hata Detay :
+                    </strong>
+                    @ex.Message
+                    <br /><br /><br />
+                }
+                @Bootstrap.LinkButton("/Home/Index", "primary", "", "", "home", "Ana Sayfaya Git")
+                @Bootstrap.LinkButton("mailto:hlya.bilgin91@gmail.com", "default", "", "", "envelope", "E-posta Gönder")
+
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿@using MyEvernote.Entities
+@model List<Note>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+            <!--Kategoriler-->
+            @Html.Partial("_PartialCategories")
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+            <!--Carousel-->
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <!--Notlar-->
+            <div class="row">
+                @foreach (Note note in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4" data-note-id="@note.Id">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt="@note.Title"></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#"  data-toggle="modal" data-target="#modal_notedetail" data-note-id="@note.Id">@note.Title</a>
+                                </h4>
+                                <h6>
+                                    <span class="fas fa-user font-weight-light">  @note.Owner.Username</span>
+                                    <span class="fas fa-clock font-weight-light">  @note.ModifiedOn.ToString("dd.MM.yy HH:mm")</span><br />
+                                </h6>
+                                <p class="card-text">
+                                    @if (string.IsNullOrEmpty(note.Text) == false && note.Text.Length > 70)
+                                    {
+                                    <p>@(note.Text.Substring(0, 70) + "...")</p>
+                                    <p><a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_notedetail" data-note-id="@note.Id">devamı  <span class="fas fa-chevron-right"></span></a></p>
+                                }
+
+                                else
+                                {
+                                    @note.Text
+                                }
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <p class="fa-pull-left">
+                                        <button class="btn btn-default btn-sm" data-liked="false" data-note-id="@note.Id">
+                                            <span class="far fa-heart like-heart"></span>&nbsp;&nbsp;
+                                            <span class="like-count">@note.LikeCount</span>
+                                        </button>
+                                    </p>
+                                    <p class="fa-pull-right">
+                                        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_comment" data-note-id="@note.Id"><span class="fas fa-comments"></span>   Yorumlar</button>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+
+@section footer{
+    @Html.Partial("_PartialFooter");
+}
+
+@Bootstrap.ModalPopup(id: "modal_comment", title: "Yorumlar")
+@Bootstrap.ModalPopup(id: "modal_notedetail", title: "Not Detayı")
+
+<script src="~/Scripts/comment.js"></script>
+<script src="~/Scripts/like.js"></script>
+<script src="~/Scripts/NoteDetailPopup.js"></script>

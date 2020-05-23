@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Yetkisiz Erişim";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h4><span class="fas fa-times-circle"></span>  Yetkisiz Erişim</h4>
+            <p>
+                Bu sayfaya erişiminiz bulunmamaktadır. <br /><br />
+                @Bootstrap.LinkButton("/Home/Index", "primary", "", "", "home", "Ana Sayfaya Git")
+            </p>
+        </div>
+    </div>
+</div>

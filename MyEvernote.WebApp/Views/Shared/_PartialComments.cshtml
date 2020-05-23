@@ -1,0 +1,57 @@
+﻿@using MyEvernote.Entities
+@using MyEvernote.WebApp.Models
+@model List<Comment>
+@{
+    EvernoteUser user = SessionHelper.User;
+}
+@foreach (Comment item in Model)
+{
+    <div class="col-md-12">
+        <div class="media">
+            <div class="media-left media-middle col-md-2">
+                <img src="~/images/user.png" class="media-object" style="width:40px">
+            </div>
+            <div class="media-body">
+                <h6 class="media-heading">@item.Owner.Username</h6>
+
+                <span class="col-md-12" id="comment_text_@item.Id" contenteditable="false">
+                    @item.Text
+                </span>
+
+            </div>
+        </div>
+        <hr />
+
+        @if (user != null && user.Id == item.Owner.Id)
+        {
+            <span class="col-md-2 text-right">
+                <button type="button" class="btn btn-warning btn-xs" data-edit-mode="false" onclick="doComment(this,'edit_clicked',@item.Id,'#comment_text_@item.Id')"><span class="fas fa-edit"></span></button>
+                <button type="button" class="btn btn-danger btn-xs" data-edit-mode="false" onclick="doComment(this,'delete_clicked',@item.Id,null)"><span class="fas fa-trash-alt"></span></button>
+            </span>
+        }
+    </div>
+
+
+
+    @*Resim--Kullanıcı Adı--Yorum--altınd yanıtla butonu-- ayrıyeten en altında yorum yaz alanı olacak  *@
+
+}
+@if (user != null)
+{
+    <div class="row">
+    </div>
+    <br />
+    <br />
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group mb-3">
+                <input type="text" id="new_comment_text" class="form-control" placeholder="Yorum yaz" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="button" onclick="doComment(this,'new_clicked',-1,null)">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,25 @@
+﻿@using MyEvernote.Entities
+@model Note
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>
+            @Model.Title
+        </h3>
+    </div>
+    <div class="col-md-12">
+        <hr />
+    </div>
+    <div class="col-md-12">
+        <span class="fas fa-user-alt"></span>  @Model.Owner.Username<br />
+        <span class="fas fa-clock-o"></span>  @Model.ModifiedOn<br />
+    </div>
+    <div class="col-md-12">
+        <hr />
+    </div>
+    <div class="col-md-12">
+        <p class="text-justify">
+            @Model.Text
+        </p>
+    </div>
+</div>

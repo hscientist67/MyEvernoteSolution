@@ -1,0 +1,99 @@
+﻿@model MyEvernote.Entities.EvernoteUser
+
+@{
+    ViewBag.Title = "Kullanıcı Düzenle";
+}
+<link href="~/Content/validation-error.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-1">
+            <h4>@ViewBag.Title</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(false)
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Name) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Surname) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Username) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Email) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.Password) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.ProfileImageFileName) : </b></label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.ProfileImageFileName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.IsActive) : </b></label>
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsActive)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"><b>@Html.DisplayNameFor(model => model.IsAdmin) : </b></label>
+                        <div class="col-md-9">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsAdmin)
+                            </div>
+                        </div>
+                    </div>
+                                     
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                        </div>
+                        @Bootstrap.LinkButton("/User/Index", "outline-secondary", "col-md-3 btn-sm", string.Empty, "arrow-left", " Geri Dön")
+
+                        <div class="col-md-6 text-right">
+                            @Bootstrap.Button("primary", "btn-sm", "submit", string.Empty, "Kaydet")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
